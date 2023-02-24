@@ -1,0 +1,14 @@
+<h1>User Profile</h1>
+<!--<p>Location: {{ profile.location }}</p>-->
+<!--<p>Phone number: {{ profile.phone}}</p>-->
+<!--<p>address: {{ profile.address}}</p>-->
+<!--<p>user: {{ profile.user }}</p> &ndash;&gt;-->
+{% if profile.profile_picture %}
+    <img src="{{ profile.profile_pic.url }}" alt="Profile Picture">
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-outline-success">Save Profile</button>
+</form>

@@ -11,5 +11,6 @@ urlpatterns=[
     path("postproduct",views.ProductAddView.as_view(),name='productadd'),
     path("logout",views.logout_view,name='signout'),
     path("editprofile",views.UserEditView.as_view(), name='user_edit'),
-    path("userprofile",views.UserProfile.as_view(),name="userprofile")
+    # path("userprofile",views.UserProfile.as_view(),name="userprofile")
+    path("userprofile",views.profile_view,name="userprofile")
 ]

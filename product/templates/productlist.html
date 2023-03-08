@@ -15,11 +15,12 @@
           {%for product in products %}
           <div class="col mb-5">
             <div class="card h-100">
+                <!-- {{product.image}} -->
                 <!-- Product image-->
                 {%if product.image%}
-                <img class="card-img-top" style="height:200px; width: 100%;" src="" alt="..." />
+                <img class="card-img-top" style="height:200px; width: 100%;" src="{{ product.image.url }}" alt="..." />
                 {%else%}
-                <img class="card-img-top" style="height:200px; width: 100%;" src="" alt="..." />
+                <img class="card-img-top" style="height:200px; width: 100%;" src="C:/Users/arjun/Desktop/my djangoworks/olxclonetrail/product_photos/wallpaperflare.com_wallpaper_6.jpg" alt="..." />
                 {%endif%}
                 <!-- Product details-->
                 <div class="card-body p-4">

@@ -41,8 +41,12 @@ class Product(models.Model):
     status = models.CharField(choices=options, default="for-sale", max_length=200)
     created_date = models.DateField(auto_now_add=True)
 
+
+
+
     def __str__(self):
         return self.name
+    
 
 
 class ProductImages(models.Model):
@@ -51,6 +55,7 @@ class ProductImages(models.Model):
 
     def __str__(self):
         return self.product.name
+    
 
 
 class Notification(models.Model):

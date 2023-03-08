@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.views.generic import FormView, TemplateView, ListView, DetailView, CreateView
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate,login, logout
+from django.contrib.auth import authenticate, login, logout
 from product.models import Product
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
@@ -44,21 +44,24 @@ class SigninView(FormView):
     template_name = "login.html"
     form_class = LoginForm
     success_url = reverse_lazy('product_list')
-    #
-    # def post(self, request, *args, **kwargs):
-    #
-    #     form = RegistrationForm(request.POST)
-    #     if form.is_valid():
-    #         uname = form.cleaned_data.get("username")
-    #         pwd = form.cleaned_data.get("password")
-    #         usr = authenticate(request, username=uname, password=pwd)
-    #         if usr:
-    #             login(request, usr)
-    #             print("hello")
-    #             return redirect("http://127.0.0.1:8000/productlist")
-    #         else:
-    #             messages.error(request, "invalid credentials")
-    #             return render(request, 'login.html', {"form": form})
+    
+    def post(self, request, *args, **kwargs):
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            uname = form.cleaned_data.get("username")
+            pwd = form.cleaned_data.get("password")
+            usr = authenticate(request, username=uname, password=pwd)
+
+            if usr:
+                login(request, usr)
+                print("hello")
+                return redirect("http://127.0.0.1:8000/productlist")
+            else:
+                messages.error(request, "invalid credentials")
+                return render(request, 'login.html', {"form": form})
+            
+        else:
+            print("'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
 
 
 @method_decorator(decs, name='dispatch')
@@ -87,8 +90,10 @@ class ProductAddView(CreateView):
     form_class = ProductForm
     success_url = reverse_lazy('product_list')
 
-class UserProfile(TemplateView):
-    template_name = "userdisplay.html"
+
+# class UserProfile(TemplateView):
+#     template_name = "userdisplay.html"
+
 
 @method_decorator(decs, name='dispatch')
 class UserEditView(CreateView):
@@ -110,3 +115,12 @@ def logout_view(request, *args, **kwargs):
     logout(request)
     messages.success(request, "loggedout")
     return redirect('signin')
+
+from .models import UserProfile
+def profile_view(request, *args, **kwargs):
+    print('*******************************************')
+    print(request.user)
+    qs = UserProfile.objects.get(user=request.user)
+    template_name = "userdisplay.html"
+    # return redirect('signin')
+    return render(request, 'userdisplay.html', {"qs": qs})

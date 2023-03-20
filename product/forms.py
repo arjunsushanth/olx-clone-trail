@@ -17,10 +17,11 @@ class LoginForm(forms.Form):
     password = forms.CharField()
 
 
-# class UserProfileForm(forms.ModelForm):
-#     class meta:
-#         model=UserProfile
-#         fields=["profile_pic","phonenumber","bio"]
+class UserProfileForm(forms.ModelForm):
+    class meta:
+        model=UserProfile
+        fields=["profile_pic","phone","address","user"]
+        
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
@@ -31,3 +32,8 @@ class UserEditForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = [ 'address', 'phone', 'profile_pic']
+
+
+# class SearchForm(forms.Form):
+#     query = forms.CharField(max_length=100, required=True)
+

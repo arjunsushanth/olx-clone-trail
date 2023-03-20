@@ -10,6 +10,7 @@ from product.models import Product
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
+from .models import UserProfile
 
 
 def signin_required(fn):
@@ -124,3 +125,11 @@ def profile_view(request, *args, **kwargs):
     template_name = "userdisplay.html"
     # return redirect('signin')
     return render(request, 'userdisplay.html', {"qs": qs})
+
+
+
+
+
+
+
+
